@@ -12,7 +12,7 @@
 	<artifactId>cadastrodeclientes</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>cadastrodeclientes</name>
-	<description>Uma API para Cadastro de Usuários utilizando Spring Boot </description>
+	<description>Minha primeira API para Cadastro de Usuários utilizando Spring Boot </description>
 	<url/>
 	<licenses>
 		<license/>
