@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>dev.nicolas</groupId>
-	<artifactId>cadastrodeclientes</artifactId>
+	<artifactId>cadastrodeusuarios</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>cadastrodeclientes</name>
+	<name>cadastrodeusuarios</name>
 	<description>Minha primeira API para Cadastro de Usuários utilizando Java e Spring Boot </description>
 	<url/>
 	<licenses>

@@ -1,13 +1,16 @@
-package dev.nicolas.cadastrodeclientes;
+package dev.nicolas.cadastrodeusuarios.Usuarios.Model;
 
 
 // Java Persistence API - JPA
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;  
+import dev.nicolas.cadastrodeusuarios.Tarefas.Model.TarefaModel;
+import java.util.List;
 
 // O Entity é uma classe que representa uma tabela no banco de dados
 @Entity
@@ -25,6 +28,9 @@ public class UsuarioModel {
 
     @Column(nullable = false)
     private String senha;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<TarefaModel> tarefas;
 
     // Construtor Noargs
     public UsuarioModel() {

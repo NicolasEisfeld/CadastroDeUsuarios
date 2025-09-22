@@ -1,13 +1,13 @@
-package dev.nicolas.cadastrodeclientes;
+package dev.nicolas.cadastrodeusuarios;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CadastrodeclientesApplication {
+public class CadastrodeusuariosApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CadastrodeclientesApplication.class, args);
+		SpringApplication.run(CadastrodeusuariosApplication.class, args);
 	}
  
 }
