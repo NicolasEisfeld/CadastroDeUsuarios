@@ -27,7 +27,7 @@ public class TarefaModel {
     @Column(nullable = false)
     private boolean concluida;
 
-    @ManyToOne
+    @ManyToOne // Muitas tarefas para um usuário
     @JoinColumn(name = "usuario_id", nullable = false)
     private UsuarioModel usuario;
 

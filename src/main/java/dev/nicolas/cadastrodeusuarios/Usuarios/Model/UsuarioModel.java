@@ -29,7 +29,7 @@ public class UsuarioModel {
     @Column(nullable = false)
     private String senha;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario") // Um usuário para muitas tarefas
     private List<TarefaModel> tarefas;
 
     // Construtor Noargs

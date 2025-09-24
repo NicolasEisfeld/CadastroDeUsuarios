@@ -12,4 +12,5 @@ public class UsuarioController {
     public String hello() {
         return "Olá, mundo!";
     }
+    
 }
