@@ -3,6 +3,9 @@ package dev.nicolas.cadastrodeusuarios.Tarefas.Model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -13,6 +16,9 @@ import jakarta.persistence.Column;
 
 @Entity // Annotation
 @Table(name = "tb_tarefa")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class TarefaModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,59 +34,7 @@ public class TarefaModel {
     private boolean concluida;
 
     @ManyToOne // Muitas tarefas para um usuário
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = false) // Foreign Key
     private UsuarioModel usuario;
-
-    public TarefaModel(Long id, String titulo, String descricao, boolean concluida, UsuarioModel usuario) {
-        this.id = id;
-        this.titulo = titulo;
-        this.descricao = descricao;
-        this.concluida = concluida;
-        this.usuario = usuario;
-    }
-
-    public TarefaModel() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public boolean isConcluida() {
-        return concluida;
-    }
-
-    public void setConcluida(boolean concluida) {
-        this.concluida = concluida;
-    }
-
-    public UsuarioModel getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(UsuarioModel usuario) {
-        this.usuario = usuario;
-    }
 
 }
