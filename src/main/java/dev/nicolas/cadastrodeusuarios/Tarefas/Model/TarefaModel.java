@@ -15,7 +15,7 @@ import dev.nicolas.cadastrodeusuarios.Usuarios.Model.UsuarioModel;
 import jakarta.persistence.Column;
 
 @Entity // Annotation
-@Table(name = "tb_tarefa")
+@Table(name = "tb_tarefas")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -31,7 +31,10 @@ public class TarefaModel {
     private String descricao;
 
     @Column(nullable = false)
-    private boolean concluida;
+    private boolean realizado;
+
+    @Column(nullable = false)
+    private int prioridade;
 
     @ManyToOne // Muitas tarefas para um usuário
     @JoinColumn(name = "usuario_id", nullable = false) // Foreign Key
