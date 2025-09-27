@@ -1,6 +1,5 @@
 package dev.nicolas.cadastrodeusuarios.Usuarios.Model;
 
-
 // Java Persistence API - JPA
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -8,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;  
+import jakarta.persistence.Column;
 import dev.nicolas.cadastrodeusuarios.Tarefas.Model.TarefaModel;
 import java.util.List;
 import lombok.NoArgsConstructor;

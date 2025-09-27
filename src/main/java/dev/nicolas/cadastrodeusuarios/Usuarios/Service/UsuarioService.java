@@ -68,8 +68,7 @@ public class UsuarioService {
                 usuarioEncontrado.getId(),
                 usuarioEncontrado.getNome(),
                 usuarioEncontrado.getEmail(),
-                LocalDateTime.now() // TODO: Adicionar campo dataCriacao no modelo
-        );
+                LocalDateTime.now());
     }
 
     // Atualizar usuário
