@@ -40,4 +40,5 @@ public class TarefaModel {
     @JoinColumn(name = "usuario_id", nullable = false) // Foreign Key
     private UsuarioModel usuario;
 
+
 }

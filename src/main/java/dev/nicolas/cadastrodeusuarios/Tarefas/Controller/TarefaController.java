@@ -13,39 +13,34 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
-
 @RestController
-@RequestMapping("/tarefas")
+@RequestMapping("/api/tarefas")
 
 public class TarefaController {
     private TarefaService tarefaService;
 
-    public TarefaController (TarefaService tarefaService) {
+    public TarefaController(TarefaService tarefaService) {
         this.tarefaService = tarefaService;
     }
-    
+
     @PostMapping
     List<TarefaModel> criarTarefa(@RequestBody TarefaModel tarefaModel) {
         return tarefaService.criarTarefa(tarefaModel);
     }
 
-
     @GetMapping
     List<TarefaModel> listarTarefa() {
         return tarefaService.listarTarefas();
     }
-    
+
     @PutMapping
-    List<TarefaModel> atualizarTarefa(TarefaModel tarefaModel) {
-        return atualizarTarefa(tarefaModel);
+    List<TarefaModel> atualizarTarefa(@RequestBody TarefaModel tarefaModel) {
+        return tarefaService.atualizarTarefa(tarefaModel);
     }
-    
-    @DeleteMapping("{id}")
+
+    @DeleteMapping("/{id}")
     List<TarefaModel> deletarTarefa(@PathVariable("id") Long id) {
-        return deletarTarefa(id);
+        return tarefaService.deletarTarefa(id);
     }
 
-
-    
 }
