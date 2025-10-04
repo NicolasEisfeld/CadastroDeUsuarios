@@ -20,6 +20,13 @@ import jakarta.persistence.Column;
 @AllArgsConstructor
 @Data
 public class TarefaModel {
+    public TarefaModel(String titulo, String descricao, boolean realizado, int prioridade) {
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.realizado = realizado;
+        this.prioridade = prioridade;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
