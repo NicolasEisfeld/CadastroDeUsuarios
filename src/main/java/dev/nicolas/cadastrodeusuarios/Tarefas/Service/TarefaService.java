@@ -37,6 +37,14 @@ public class TarefaService {
             } else {
                 tarefaModel.setUsuario(usuarioExistente.get());
             }
+        } else {
+            // Se não há usuário associado, criar um usuário padrão
+            UsuarioModel usuarioPadrao = new UsuarioModel();
+            usuarioPadrao.setNome("Usuário Padrão");
+            usuarioPadrao.setEmail("usuario@padrao.com");
+            usuarioPadrao.setSenha("123456");
+            UsuarioModel usuarioSalvo = usuarioRepository.save(usuarioPadrao);
+            tarefaModel.setUsuario(usuarioSalvo);
         }
 
         tarefaRepository.save(tarefaModel);
