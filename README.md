@@ -1,8 +1,8 @@
-# 📋 API de Cadastro de Usuários e Tarefas
+#  API de Cadastro de Usuários e Tarefas
 
 Uma API REST completa desenvolvida em Java com Spring Boot para gerenciamento de usuários e suas respectivas tarefas.
 
-## 🚀 Visão Geral
+##  Visão Geral
 
 Esta API oferece funcionalidades completas para:
 
@@ -11,7 +11,7 @@ Esta API oferece funcionalidades completas para:
 - **Documentação Interativa**: Swagger UI integrado
 - **Banco de Dados**: H2 em memória para desenvolvimento
 
-## 🛠️ Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 
 ### Backend
 
@@ -38,7 +38,7 @@ Esta API oferece funcionalidades completas para:
 - **Maven** - Gerenciamento de dependências
 - **Spring Boot DevTools** - Recarga automática durante desenvolvimento
 
-## 🏗️ Arquitetura e Práticas Adotadas
+##  Arquitetura e Práticas Adotadas
 
 ### Padrões de Arquitetura
 
@@ -47,26 +47,6 @@ Esta API oferece funcionalidades completas para:
 - **Service Layer** - Lógica de negócio centralizada
 - **DTO Pattern** - Transferência de dados entre camadas
 
-### Estrutura do Projeto
-
-```
-src/main/java/dev/nicolas/cadastrodeusuarios/
-├── Config/
-│   └── OpenApiConfig.java          # Configuração do Swagger
-├── Exception/
-│   └── GlobalExceptionHandler.java # Tratamento global de exceções
-├── Tarefas/
-│   ├── Controller/
-│   ├── Model/
-│   ├── Repository/
-│   └── Service/
-└── Usuarios/
-    ├── Controller/
-    ├── Dto/
-    ├── Model/
-    ├── Repository/
-    └── Service/
-```
 
 ### Práticas de Desenvolvimento
 
@@ -76,7 +56,7 @@ src/main/java/dev/nicolas/cadastrodeusuarios/
 - **Separação de Responsabilidades**: Cada camada com função específica
 - **Injeção de Dependência**: Uso de @Autowired e construtores
 
-## 📊 Modelos de Dados
+##  Modelos de Dados
 
 ### UsuarioModel
 
@@ -99,7 +79,7 @@ src/main/java/dev/nicolas/cadastrodeusuarios/
 - usuario_id: Long (FK para UsuarioModel)
 ```
 
-## 🔗 Endpoints da API
+##  Endpoints da API
 
 ### Usuários (`/api/usuarios`)
 
@@ -128,7 +108,7 @@ src/main/java/dev/nicolas/cadastrodeusuarios/
 | ------ | ------------------ | ------------------- |
 | GET    | `/actuator/health` | Status da aplicação |
 
-## 🚀 Instalação e Configuração
+##  Instalação e Configuração
 
 ### Pré-requisitos
 
@@ -171,7 +151,7 @@ A aplicação está configurada para usar H2 em memória:
 - **Usuário**: `sa`
 - **Senha**: `password`
 
-## 🧪 Como Testar a API
+##  Como Testar a API
 
 ### 1. Via Swagger UI (Recomendado)
 
@@ -225,7 +205,7 @@ Importe a coleção usando a documentação OpenAPI disponível em:
 curl -X GET http://localhost:8080/actuator/health
 ```
 
-## 📝 Exemplos de Uso
+##  Exemplos de Uso
 
 ### Criando um Usuário
 
@@ -305,24 +285,5 @@ mvn clean install -DskipTests
 mvn dependency:resolve
 ```
 
-## 📚 Documentação Adicional
 
-- **Swagger UI**: `http://localhost:8080/swagger-ui.html`
-- **OpenAPI JSON**: `http://localhost:8080/v3/api-docs`
-- **H2 Console**: `http://localhost:8080/h2-console`
-- **Health Check**: `http://localhost:8080/actuator/health`
 
-## 👨‍💻 Desenvolvedor
-
-**Nicolas Eisfeld**
-
-- Email: nicolas@example.com
-- Projeto: API de Cadastro de Usuários
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
-
----
-
-**🎉 Aproveite explorando a API! Use o Swagger UI para uma experiência interativa completa.**
