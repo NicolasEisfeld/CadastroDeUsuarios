@@ -1,4 +1,4 @@
-package dev.nicolas.cadastrodeusuarios;
+package dev.nicolas.cadastrodeusuarios.Usuario;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,5 +11,7 @@ public class UsuarioController {
     public String boasVindas() {
         return "Olá mundo!";
     }
+
+
 
 }

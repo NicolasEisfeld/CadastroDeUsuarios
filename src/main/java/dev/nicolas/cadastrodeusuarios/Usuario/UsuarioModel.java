@@ -1,9 +1,11 @@
-package dev.nicolas.cadastrodeusuarios;
+package dev.nicolas.cadastrodeusuarios.Usuario;
 
+import dev.nicolas.cadastrodeusuarios.Tarefas.TarefaModel;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+
+import java.util.List;
 // JPA = Java Persistence API
 
 @AllArgsConstructor
@@ -19,4 +21,7 @@ public class UsuarioModel {
     private String nome;
     private String email;
     private int idade;
+    @OneToMany(mappedBy = "usuario") // um Usuário pode ter mais de uma Tarefa
+    private List<TarefaModel> tarefas;
+
 }
