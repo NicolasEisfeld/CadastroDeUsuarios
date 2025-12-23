@@ -17,10 +17,15 @@ public class UsuarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera o valor do ID automaticamente
     private Long id;
+
     @Column (nullable = false) // Define que a coluna não pode ser nula
     private String nome;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
     private int idade;
+
     @OneToMany(mappedBy = "usuario") // um Usuário pode ter mais de uma Tarefa
     private List<TarefaModel> tarefas;
 
