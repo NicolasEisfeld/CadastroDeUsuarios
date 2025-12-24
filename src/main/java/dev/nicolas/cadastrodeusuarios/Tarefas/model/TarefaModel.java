@@ -21,6 +21,7 @@ public class TarefaModel {
     @Column(nullable = false)
     private int prioridade;
 
+
     @Column(nullable = false, columnDefinition = "boolean default false")
     private boolean concluida;
 
