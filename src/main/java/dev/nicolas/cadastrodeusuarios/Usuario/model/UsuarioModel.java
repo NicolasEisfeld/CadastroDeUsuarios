@@ -1,6 +1,6 @@
-package dev.nicolas.cadastrodeusuarios.Usuario;
+package dev.nicolas.cadastrodeusuarios.Usuario.model;
 
-import dev.nicolas.cadastrodeusuarios.Tarefas.TarefaModel;
+import dev.nicolas.cadastrodeusuarios.Tarefas.model.TarefaModel;
 import jakarta.persistence.*;
 import lombok.*;
 
