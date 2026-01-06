@@ -13,6 +13,7 @@ public class TarefaModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
+    @Column(name = "id_tarefa")
     private long id;
 
     @Column(nullable = false)
@@ -20,7 +21,6 @@ public class TarefaModel {
 
     @Column(nullable = false)
     private int prioridade;
-
 
     @Column(nullable = false, columnDefinition = "boolean default false")
     private boolean concluida;
