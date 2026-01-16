@@ -1,5 +1,6 @@
 package dev.nicolas.cadastrodeusuarios.Usuario.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.nicolas.cadastrodeusuarios.Tarefas.model.TarefaModel;
 import jakarta.persistence.*;
 import lombok.*;
@@ -28,6 +29,7 @@ public class UsuarioModel {
     private int idade;
 
     @OneToMany(mappedBy = "usuario") // um Usuário pode ter mais de uma Tarefa
+    @JsonIgnore
     private List<TarefaModel> tarefas;
 
 }

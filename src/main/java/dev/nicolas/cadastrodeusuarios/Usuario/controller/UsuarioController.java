@@ -1,13 +1,24 @@
 package dev.nicolas.cadastrodeusuarios.Usuario.controller;
 
+import dev.nicolas.cadastrodeusuarios.Usuario.model.UsuarioModel;
+import dev.nicolas.cadastrodeusuarios.Usuario.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping
+@RequestMapping("/usuario")
 public class UsuarioController {
     @GetMapping("/boasvindas")
     public String boasVindas() {
         return "Olá mundo!";
+    }
+
+
+    private UsuarioService usuarioService;
+
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
 
     // Adicionar Usuário (create)
@@ -17,15 +28,15 @@ public class UsuarioController {
     }
 
     // Procurar Usuario por ID (read)
-    @GetMapping("/procurar")
-    public String procurarUsuario() {
-        return "Usuário encontrado";
+    @GetMapping("/listar/{id}")
+    public UsuarioModel listarUsuarioPorID(@PathVariable long id) {
+        return usuarioService.listarUsuarioPorID(id);
     }
 
     // Listar Todos os Usuários (read)
-    @GetMapping("/listartodos")
-    public String listarUsuarios() {
-        return "Lista de Usuários";
+    @GetMapping("/listar")
+    public List<UsuarioModel> listarUsuarios() {
+        return usuarioService.listarUsuarios();
     }
 
     // Alterar Usuário (update)
