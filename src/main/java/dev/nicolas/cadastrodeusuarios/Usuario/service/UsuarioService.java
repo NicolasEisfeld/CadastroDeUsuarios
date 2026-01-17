@@ -5,6 +5,7 @@ import dev.nicolas.cadastrodeusuarios.Usuario.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -15,6 +16,11 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
+    // Adicionar Usuário
+    public UsuarioModel adicionarUsuario(UsuarioModel usuarioModel) {
+        return usuarioRepository.save(usuarioModel);
+    }
+
     // Listar Todos os Usuários
     public List<UsuarioModel> listarUsuarios() {
         return usuarioRepository.findAll();
@@ -22,7 +28,8 @@ public class UsuarioService {
 
     // Listar Usuário por ID
     public UsuarioModel listarUsuarioPorID(Long id) {
-        return usuarioRepository.findById(id).orElse(null);
+        Optional <UsuarioModel> usuarioModel = usuarioRepository.findById(id);
+        return usuarioModel.orElse(null);
     }
 
 }
