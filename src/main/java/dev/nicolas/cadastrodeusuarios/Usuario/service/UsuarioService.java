@@ -32,4 +32,10 @@ public class UsuarioService {
         return usuarioModel.orElse(null);
     }
 
+    // Deletar Usuário por ID
+    public void deletarUsuarioPorId(Long id) {
+        usuarioRepository.deleteById(id);
+        
+    }
+
 }
