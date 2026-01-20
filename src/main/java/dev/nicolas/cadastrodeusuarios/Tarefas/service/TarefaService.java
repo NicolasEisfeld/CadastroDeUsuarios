@@ -30,6 +30,16 @@ public class TarefaService {
         return tarefaRepository.findById(id).orElse(null);
     }
 
+    // Alterar Tarefa
+    public TarefaModel alterarTarefa(Long id, TarefaModel tarefaModel) {
+        if(tarefaRepository.existsById(id)) {
+            tarefaModel.setId(id);
+            return tarefaRepository.save(tarefaModel);
+        } else {
+            return null;
+        }
+    }
+
     // Deletar Tarefa Por ID
     public void deletarTarefaPorId(Long id) {
         tarefaRepository.deleteById(id);

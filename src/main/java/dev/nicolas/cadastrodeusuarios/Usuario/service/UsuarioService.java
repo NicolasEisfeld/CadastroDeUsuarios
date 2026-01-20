@@ -32,10 +32,21 @@ public class UsuarioService {
         return usuarioModel.orElse(null);
     }
 
+    // Alterar Usuário
+    public UsuarioModel alterarUsuario(Long id, UsuarioModel usuarioModel) {
+        if(usuarioRepository.existsById(id)) {
+            usuarioModel.setId(id);
+            return usuarioRepository.save(usuarioModel);
+        } else {
+            return null;
+        }
+    }
+
     // Deletar Usuário por ID
     public void deletarUsuarioPorId(Long id) {
         usuarioRepository.deleteById(id);
         
     }
+
 
 }
