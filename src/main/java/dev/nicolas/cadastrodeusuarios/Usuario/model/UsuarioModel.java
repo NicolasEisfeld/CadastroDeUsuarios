@@ -32,4 +32,6 @@ public class UsuarioModel {
     @JsonIgnore
     private List<TarefaModel> tarefas;
 
+    private String password;
+
 }
