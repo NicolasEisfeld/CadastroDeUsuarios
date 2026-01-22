@@ -3,6 +3,8 @@ package dev.nicolas.cadastrodeusuarios.Usuario.controller;
 import dev.nicolas.cadastrodeusuarios.Usuario.dto.UsuarioDTO;
 import dev.nicolas.cadastrodeusuarios.Usuario.model.UsuarioModel;
 import dev.nicolas.cadastrodeusuarios.Usuario.service.UsuarioService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,8 +26,11 @@ public class UsuarioController {
 
     // Adicionar Usuário (create)
     @PostMapping("/adicionar")
-    public UsuarioDTO adicionarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
-        return usuarioService.adicionarUsuario(usuarioDTO);
+    public ResponseEntity<String> adicionarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
+        UsuarioDTO usuario =  usuarioService.adicionarUsuario(usuarioDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                "Usuário " + usuario.getNome() + " adicionado com sucesso | ID: " + usuario.getId()
+        );
     }
 
     // Procurar Usuario por ID (read)
@@ -42,14 +47,23 @@ public class UsuarioController {
 
     // Alterar Usuário (update)
     @PutMapping("/alterar/{id}")
-    public UsuarioDTO alterarUsuario(@PathVariable Long id, @RequestBody UsuarioDTO usuarioDTO) {
-        return usuarioService.alterarUsuario(id, usuarioDTO);
+    public ResponseEntity alterarUsuario(@PathVariable Long id, @RequestBody UsuarioDTO usuarioDTO) {
+        UsuarioDTO usuario = usuarioService.alterarUsuario(id, usuarioDTO);
+        return ResponseEntity.status(HttpStatus.FOUND).body(
+                "Usuário" + usuario.getNome() + "alterado com sucesso | ID: " + usuario.getId()
+        );
     }
 
     // Deletar Usuário (delete)
     @DeleteMapping("/deletar/{id}")
-    public void removerUsuario(@PathVariable Long id) {
-        usuarioService.deletarUsuarioPorId(id);
+    public ResponseEntity<String> removerUsuario(@PathVariable Long id) {
+        if(usuarioService.listarUsuarioPorID(id) != null) {
+            usuarioService.deletarUsuarioPorId(id);
+            return ResponseEntity.ok("Usuário com o ID " + id + " deletado com sucesso.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Usuário com o ID " + id + "não foi encontrado.");
+        }
     }
 
 
