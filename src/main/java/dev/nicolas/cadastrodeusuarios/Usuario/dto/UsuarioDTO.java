@@ -18,6 +18,4 @@ public class UsuarioDTO {
         private List<TarefaModel> tarefas;
         private String password;
 
-    }
-
 }

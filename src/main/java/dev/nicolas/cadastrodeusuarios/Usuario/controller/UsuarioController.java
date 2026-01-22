@@ -1,5 +1,6 @@
 package dev.nicolas.cadastrodeusuarios.Usuario.controller;
 
+import dev.nicolas.cadastrodeusuarios.Usuario.dto.UsuarioDTO;
 import dev.nicolas.cadastrodeusuarios.Usuario.model.UsuarioModel;
 import dev.nicolas.cadastrodeusuarios.Usuario.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
@@ -23,26 +24,26 @@ public class UsuarioController {
 
     // Adicionar Usuário (create)
     @PostMapping("/adicionar")
-    public UsuarioModel adicionarUsuario(@RequestBody UsuarioModel usuarioModel) {
-        return usuarioService.adicionarUsuario(usuarioModel);
+    public UsuarioDTO adicionarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
+        return usuarioService.adicionarUsuario(usuarioDTO);
     }
 
     // Procurar Usuario por ID (read)
     @GetMapping("/listar/{id}")
-    public UsuarioModel listarUsuarioPorID(@PathVariable long id) {
+    public UsuarioDTO listarUsuarioPorID(@PathVariable long id) {
         return usuarioService.listarUsuarioPorID(id);
     }
 
     // Listar Todos os Usuários (read)
     @GetMapping("/listar")
-    public List<UsuarioModel> listarUsuarios() {
+    public List<UsuarioDTO> listarUsuarios() {
         return usuarioService.listarUsuarios();
     }
 
     // Alterar Usuário (update)
     @PutMapping("/alterar/{id}")
-    public UsuarioModel alterarUsuario(@PathVariable Long id, @RequestBody UsuarioModel usuarioModel) {
-        return usuarioService.alterarUsuario(id, usuarioModel);
+    public UsuarioDTO alterarUsuario(@PathVariable Long id, @RequestBody UsuarioDTO usuarioDTO) {
+        return usuarioService.alterarUsuario(id, usuarioDTO);
     }
 
     // Deletar Usuário (delete)

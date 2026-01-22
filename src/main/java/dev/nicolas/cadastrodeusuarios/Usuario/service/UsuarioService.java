@@ -1,5 +1,7 @@
 package dev.nicolas.cadastrodeusuarios.Usuario.service;
 
+import dev.nicolas.cadastrodeusuarios.Usuario.dto.UsuarioDTO;
+import dev.nicolas.cadastrodeusuarios.Usuario.mapper.UsuarioMapper;
 import dev.nicolas.cadastrodeusuarios.Usuario.model.UsuarioModel;
 import dev.nicolas.cadastrodeusuarios.Usuario.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
@@ -11,35 +13,44 @@ import java.util.Optional;
 public class UsuarioService {
 
     private UsuarioRepository usuarioRepository;
+    private UsuarioMapper usuarioMapper;
 
-    public UsuarioService(UsuarioRepository usuarioRepository) {
+    public UsuarioService(UsuarioRepository usuarioRepository, UsuarioMapper usuarioMapper) {
         this.usuarioRepository = usuarioRepository;
+        this.usuarioMapper = usuarioMapper;
     }
 
     // Adicionar Usuário
-    public UsuarioModel adicionarUsuario(UsuarioModel usuarioModel) {
-        return usuarioRepository.save(usuarioModel);
+    public UsuarioDTO adicionarUsuario(UsuarioDTO usuarioDTO) {
+        UsuarioModel usuarioModel = usuarioMapper.map(usuarioDTO);
+        usuarioModel = usuarioRepository.save(usuarioModel);
+        return usuarioMapper.map(usuarioModel);
     }
 
     // Listar Todos os Usuários
-    public List<UsuarioModel> listarUsuarios() {
-        return usuarioRepository.findAll();
+    public List<UsuarioDTO> listarUsuarios() {
+        List<UsuarioModel> usuarios = usuarioRepository.findAll();
+        return usuarios.stream()
+                .map(usuarioMapper::map)
+                .toList();
     }
 
     // Listar Usuário por ID
-    public UsuarioModel listarUsuarioPorID(Long id) {
+    public UsuarioDTO listarUsuarioPorID(Long id) {
         Optional <UsuarioModel> usuarioModel = usuarioRepository.findById(id);
-        return usuarioModel.orElse(null);
+        return usuarioModel.map(usuarioMapper::map).orElse(null);
     }
 
     // Alterar Usuário
-    public UsuarioModel alterarUsuario(Long id, UsuarioModel usuarioModel) {
-        if(usuarioRepository.existsById(id)) {
-            usuarioModel.setId(id);
-            return usuarioRepository.save(usuarioModel);
-        } else {
-            return null;
+    public UsuarioDTO alterarUsuario(Long id, UsuarioDTO usuarioDTO) {
+        Optional <UsuarioModel> usuarioExistente = usuarioRepository.findById(id);
+        if(usuarioExistente.isPresent()) {
+            UsuarioModel usuarioAtualizado = usuarioMapper.map(usuarioDTO);
+            usuarioAtualizado.setId(id);
+            usuarioRepository.save(usuarioAtualizado);
+            return usuarioMapper.map(usuarioAtualizado);
         }
+        return null;
     }
 
     // Deletar Usuário por ID
