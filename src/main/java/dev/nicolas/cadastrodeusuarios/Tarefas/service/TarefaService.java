@@ -1,40 +1,54 @@
 package dev.nicolas.cadastrodeusuarios.Tarefas.service;
 
+import dev.nicolas.cadastrodeusuarios.Tarefas.dto.TarefaDTO;
+import dev.nicolas.cadastrodeusuarios.Tarefas.mapper.TarefaMapper;
 import dev.nicolas.cadastrodeusuarios.Tarefas.model.TarefaModel;
 import dev.nicolas.cadastrodeusuarios.Tarefas.repository.TarefaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TarefaService {
 
     private TarefaRepository tarefaRepository;
+    private TarefaMapper tarefaMapper;
 
     public TarefaService(TarefaRepository tarefaRepository) {
         this.tarefaRepository = tarefaRepository;
     }
 
     // Adicionar Tarefa
-    public TarefaModel adicionarTarefa(TarefaModel tarefaModel) {
-        return tarefaRepository.save(tarefaModel);
+    public TarefaDTO adicionarTarefa(TarefaDTO tarefaDTO) {
+        TarefaModel tarefaModel = tarefaMapper.map(tarefaDTO);
+        tarefaRepository.save(tarefaModel);
+        return tarefaMapper.map(tarefaModel);
     }
 
     // Listar Tarefas
-    public List<TarefaModel> listarTarefas() {
-        return tarefaRepository.findAll();
+    public List<TarefaDTO> listarTarefas() {
+        List<TarefaModel> tarefas = tarefaRepository.findAll();
+        return tarefas.stream()
+                .map(tarefaMapper::map)
+                .toList();
+
     }
 
     // Listar Tarefa Por ID
-    public TarefaModel listarTarefaPorID(Long id) {
-        return tarefaRepository.findById(id).orElse(null);
+    public TarefaDTO listarTarefaPorID(Long id) {
+        Optional<TarefaModel> tarefaModel = tarefaRepository.findById(id);
+        return tarefaModel.map(tarefaMapper::map).orElse(null);
     }
 
     // Alterar Tarefa
-    public TarefaModel alterarTarefa(Long id, TarefaModel tarefaModel) {
-        if(tarefaRepository.existsById(id)) {
-            tarefaModel.setId(id);
-            return tarefaRepository.save(tarefaModel);
+    public TarefaDTO alterarTarefa(Long id, TarefaDTO tarefaDTO) {
+        Optional<TarefaModel> tarefaExistente = tarefaRepository.findById(id);
+        if(tarefaExistente.isPresent()) {
+            TarefaModel tarefaAtualizada = tarefaMapper.map(tarefaDTO);
+            tarefaAtualizada.setId(id);
+            tarefaRepository.save(tarefaAtualizada);
+            return tarefaMapper.map(tarefaAtualizada);
         } else {
             return null;
         }
