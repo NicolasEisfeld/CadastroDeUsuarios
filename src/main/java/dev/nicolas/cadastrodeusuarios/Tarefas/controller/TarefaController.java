@@ -19,8 +19,8 @@ public class TarefaController {
     }
 
     // Adicionar Usuário (create)
-    @PostMapping("/criar")
-    public ResponseEntity<String> adicionarTarefa(TarefaDTO tarefaDTO) {
+    @PostMapping("/adicionar")
+    public ResponseEntity<String> adicionarTarefa(@RequestBody TarefaDTO tarefaDTO) {
         tarefaService.adicionarTarefa(tarefaDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 "Tarefa criada com sucesso!"
