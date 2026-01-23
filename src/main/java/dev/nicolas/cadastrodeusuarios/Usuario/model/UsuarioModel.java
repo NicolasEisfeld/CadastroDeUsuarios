@@ -7,7 +7,6 @@ import lombok.*;
 
 
 import java.util.List;
-// JPA = Java Persistence API
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,6 +14,7 @@ import java.util.List;
 @Entity // Transforma uma classe em uma entidade do DB
 @Table(name = "tb_usuarios")
 public class UsuarioModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera o valor do ID automaticamente
     @Column(name = "id_usuario")

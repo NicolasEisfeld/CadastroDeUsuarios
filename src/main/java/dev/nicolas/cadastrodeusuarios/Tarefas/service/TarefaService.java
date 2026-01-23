@@ -12,11 +12,12 @@ import java.util.Optional;
 @Service
 public class TarefaService {
 
-    private TarefaRepository tarefaRepository;
-    private TarefaMapper tarefaMapper;
+    private final TarefaRepository tarefaRepository;
+    private final TarefaMapper tarefaMapper;
 
-    public TarefaService(TarefaRepository tarefaRepository) {
+    public TarefaService(TarefaRepository tarefaRepository, TarefaMapper tarefaMapper) {
         this.tarefaRepository = tarefaRepository;
+        this.tarefaMapper = tarefaMapper;
     }
 
     // Adicionar Tarefa

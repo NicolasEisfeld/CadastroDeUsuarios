@@ -12,7 +12,11 @@ import java.util.List;
 @RequestMapping("/tarefa")
 public class TarefaController {
 
-    private TarefaService tarefaService;
+    private final TarefaService  tarefaService;
+
+    public TarefaController(TarefaService tarefaService) {
+        this.tarefaService = tarefaService;
+    }
 
     // Adicionar Usuário (create)
     @PostMapping("/criar")
