@@ -35,22 +35,31 @@ public class UsuarioController {
 
     // Procurar Usuario por ID (read)
     @GetMapping("/listar/{id}")
-    public UsuarioDTO listarUsuarioPorID(@PathVariable long id) {
-        return usuarioService.listarUsuarioPorID(id);
+    public ResponseEntity<?> listarUsuarioPorID(@PathVariable long id) {
+        UsuarioDTO usuarioDTO = usuarioService.listarUsuarioPorID(id);
+        if(usuarioDTO != null) {
+            usuarioService.listarUsuarioPorID(id);
+            return ResponseEntity.status(HttpStatus.FOUND).body(usuarioDTO);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário de ID " + id + "não foi encontrado.");
+        }
+
+
     }
 
     // Listar Todos os Usuários (read)
     @GetMapping("/listar")
-    public List<UsuarioDTO> listarUsuarios() {
-        return usuarioService.listarUsuarios();
+    public ResponseEntity<List<UsuarioDTO>> listarUsuarios() {
+        List<UsuarioDTO> usuarios = usuarioService.listarUsuarios();
+        return ResponseEntity.ok(usuarios);
     }
 
     // Alterar Usuário (update)
     @PutMapping("/alterar/{id}")
-    public ResponseEntity alterarUsuario(@PathVariable Long id, @RequestBody UsuarioDTO usuarioDTO) {
+    public ResponseEntity<String> alterarUsuario(@PathVariable Long id, @RequestBody UsuarioDTO usuarioDTO) {
         UsuarioDTO usuario = usuarioService.alterarUsuario(id, usuarioDTO);
         return ResponseEntity.status(HttpStatus.FOUND).body(
-                "Usuário" + usuario.getNome() + "alterado com sucesso | ID: " + usuario.getId()
+                "Usuário " + usuario.getNome() + " alterado com sucesso | ID: " + usuario.getId()
         );
     }
 
@@ -59,10 +68,10 @@ public class UsuarioController {
     public ResponseEntity<String> removerUsuario(@PathVariable Long id) {
         if(usuarioService.listarUsuarioPorID(id) != null) {
             usuarioService.deletarUsuarioPorId(id);
-            return ResponseEntity.ok("Usuário com o ID " + id + " deletado com sucesso.");
+            return ResponseEntity.ok("Usuário de ID " + id + " deletado com sucesso.");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Usuário com o ID " + id + "não foi encontrado.");
+                    .body("Usuário de ID " + id + "não foi encontrado.");
         }
     }
 
