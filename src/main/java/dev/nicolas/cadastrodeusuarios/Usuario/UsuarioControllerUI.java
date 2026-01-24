@@ -8,11 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-public class UsuarioControlerUI {
+public class UsuarioControllerUI {
 
     private final UsuarioService usuarioService;
 
-    public UsuarioControlerUI(UsuarioService usuarioService) {
+    public UsuarioControllerUI(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
 

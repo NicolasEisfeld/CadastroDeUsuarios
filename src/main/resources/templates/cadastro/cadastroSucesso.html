@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro de Usuário</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Realizado</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
+
 <body>
-    <h3>Cadastro realizado com sucesso!</h3>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">NicolasDev</a>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/cadastro" class="nav-link">Cadastro</a></li>
+                <li><a href="/login" class="nav-link">Login</a></li>
+                <li><a href="/tarefas" class="nav-link">Tarefas</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container message-container">
+        <div class="success-icon">✓</div>
+
+        <h3>Cadastro Realizado com Sucesso!</h3>
+
+        <p class="message">
+            Sua conta foi criada com sucesso. Agora você pode fazer login e aproveitar todos os recursos.
+        </p>
+
+        <a href="" class="btn-link">Continuar</a>
+    </div>
 </body>
+
 </html>

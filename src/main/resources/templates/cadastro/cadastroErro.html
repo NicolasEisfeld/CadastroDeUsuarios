@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erro no Cadastro</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
+
 <body>
-    <h3>Falha ao tentar realizar o Cadastro.</h3>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">NicolasDev</a>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/cadastro" class="nav-link">Cadastro</a></li>
+                <li><a href="/login" class="nav-link">Login</a></li>
+                <li><a href="/tarefas" class="nav-link">Tarefas</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container message-container">
+        <div class="error-icon">✕</div>
+
+        <h3>Erro ao Realizar Cadastro</h3>
+
+        <p class="message">
+            Ocorreu um problema ao processar seu cadastro. Por favor, verifique os dados e tente novamente.
+        </p>
+
+        <a href="/cadastro" class="btn-link">Tentar Novamente</a>
+    </div>
 </body>
+
 </html>
