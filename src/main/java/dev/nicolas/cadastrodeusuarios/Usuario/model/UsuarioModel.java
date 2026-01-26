@@ -13,6 +13,8 @@ import java.util.List;
 @Data
 @Entity // Transforma uma classe em uma entidade do DB
 @Table(name = "tb_usuarios")
+@ToString(exclude = "tarefas")
+@EqualsAndHashCode(exclude = "tarefas")
 public class UsuarioModel {
 
     @Id
