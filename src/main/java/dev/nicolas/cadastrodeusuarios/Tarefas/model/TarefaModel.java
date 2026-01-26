@@ -9,6 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "tb_tarefas")
+@ToString(exclude = "usuario")
+@EqualsAndHashCode(exclude = "usuario")
 public class TarefaModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
