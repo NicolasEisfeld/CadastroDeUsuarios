@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarefas</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">NicolasDev</a>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/cadastro" class="nav-link">Cadastro</a></li>
+                <li><a href="/login" class="nav-link">Login</a></li>
+                <li><a href="/tafefas" class="nav-link">Tarefas</a></li>
+            </ul>
+        </div>
+    </nav>
+    <h1>Lista de Tarefas</h1>
+    <table >
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descricao</th>
+                <th>Prioridade</th>
+                <th>Concluida</th>
+                <th>Usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="tarefa : ${tarefas}">
+                <td th:text="${tarefa.id}">1</td>
+                <td th:text="${tarefa.descricao}">Descrição da Tarefa</td>
+                <td th:text="${tarefa.prioridade}">Prioridade da Tarefa</td>
+                <td th:text="${tarefa.concluida}">Status da Tarefa</td>
+                <td th:text="${tarefa.usuario}">Tarefa do Usuário</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
