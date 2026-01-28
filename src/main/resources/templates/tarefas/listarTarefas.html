@@ -38,6 +38,10 @@
                 <td th:text="${tarefa.prioridade}">Prioridade da Tarefa</td>
                 <td th:text="${tarefa.concluida}">Status da Tarefa</td>
                 <td th:text="${tarefa.usuario}">Tarefa do Usuário</td>
+                <td>
+                    <a th:href="@{'/tarefas/alterar/' + ${tarefa.id}}">Alterar</a>
+                    <a th:href="@{'/tarefas/deletar/' + ${tarefa.id}}">Deletar</a>
+                </td>
             </tr>
         </tbody>
     </table>
