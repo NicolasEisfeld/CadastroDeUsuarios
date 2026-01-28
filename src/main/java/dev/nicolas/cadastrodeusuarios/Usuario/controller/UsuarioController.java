@@ -3,6 +3,7 @@ package dev.nicolas.cadastrodeusuarios.Usuario.controller;
 import dev.nicolas.cadastrodeusuarios.Usuario.dto.UsuarioDTO;
 import dev.nicolas.cadastrodeusuarios.Usuario.model.UsuarioModel;
 import dev.nicolas.cadastrodeusuarios.Usuario.service.UsuarioService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @RequestMapping("/usuario")
 public class UsuarioController {
     @GetMapping("/boasvindas")
+    @Operation(summary = "Mensagem de boas-vindas", description = "Essa rota é uma mensagem de boas-vindas.")
     public String boasVindas() {
         return "Olá mundo!";
     }
