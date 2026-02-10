@@ -9,13 +9,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TarefaDTO {
-    private long id;
+    private Long id;
 
     private String descricao;
 
     private int prioridade;
 
     private boolean concluida;
+    
+    private String status;
+
+    private Long usuarioId;
 
     private UsuarioModel usuario;
 }

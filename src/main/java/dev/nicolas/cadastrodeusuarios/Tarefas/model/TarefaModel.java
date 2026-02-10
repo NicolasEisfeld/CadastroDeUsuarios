@@ -16,7 +16,7 @@ public class TarefaModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @Column(name = "id_tarefa")
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private String descricao;
@@ -26,8 +26,14 @@ public class TarefaModel {
 
     @Column(nullable = false, columnDefinition = "boolean default false")
     private boolean concluida;
+    
+    @Column(name = "status")
+    private String status = "PENDENTE";
 
     @ManyToOne // Uma Tarefa pertence a um Usuário
     @JoinColumn(name = "usuario_id") // Define a chave estrangeira
     private UsuarioModel usuario;
+    
+    @Column(name = "usuario_id")
+    private Long usuarioId;
 }
