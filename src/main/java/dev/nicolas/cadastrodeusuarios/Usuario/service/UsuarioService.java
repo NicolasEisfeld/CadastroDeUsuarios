@@ -4,6 +4,7 @@ import dev.nicolas.cadastrodeusuarios.Usuario.dto.UsuarioDTO;
 import dev.nicolas.cadastrodeusuarios.Usuario.mapper.UsuarioMapper;
 import dev.nicolas.cadastrodeusuarios.Usuario.model.UsuarioModel;
 import dev.nicolas.cadastrodeusuarios.Usuario.repository.UsuarioRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,15 +15,28 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final UsuarioMapper usuarioMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, UsuarioMapper usuarioMapper) {
+    public UsuarioService(UsuarioRepository usuarioRepository, UsuarioMapper usuarioMapper, PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
         this.usuarioMapper = usuarioMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     // Adicionar Usuário
     public UsuarioDTO adicionarUsuario(UsuarioDTO usuarioDTO) {
         UsuarioModel usuarioModel = usuarioMapper.map(usuarioDTO);
+        
+        // Criptografar senha antes de salvar
+        if (usuarioModel.getPassword() != null && !usuarioModel.getPassword().isEmpty()) {
+            usuarioModel.setPassword(passwordEncoder.encode(usuarioModel.getPassword()));
+        }
+        
+        // Garantir que o usuário tenha pelo menos a role USER
+        if (usuarioModel.getRoles() == null || usuarioModel.getRoles().isEmpty()) {
+            usuarioModel.setRoles(List.of(UsuarioModel.Role.USER));
+        }
+        
         usuarioModel = usuarioRepository.save(usuarioModel);
         return usuarioMapper.map(usuarioModel);
     }
