@@ -42,8 +42,7 @@ public class SecurityConfig {
                 .requestMatchers("/usuario/boasvindas").permitAll()
                 .requestMatchers("/usuario/adicionar").permitAll()
                 .requestMatchers("/login").permitAll()
-                .requestMatchers("/oauth2/**").permitAll()
-                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
 
                 .requestMatchers("/", "/home").permitAll()
@@ -58,17 +57,6 @@ public class SecurityConfig {
                 .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                 
                 .anyRequest().authenticated()
-            )
-            .oauth2Login(oauth2 -> oauth2
-                .loginPage("/login")
-                .defaultSuccessUrl("/home", true)
-                .failureUrl("/login?error=true")
-                .authorizationEndpoint(authorization -> authorization
-                    .baseUri("/oauth2/authorize")
-                )
-                .redirectionEndpoint(redirection -> redirection
-                    .baseUri("/oauth2/callback/*")
-                )
             )
             .formLogin(form -> form
                 .loginPage("/login")
