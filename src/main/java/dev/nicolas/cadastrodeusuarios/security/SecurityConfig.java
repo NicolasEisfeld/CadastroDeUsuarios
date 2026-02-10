@@ -37,25 +37,30 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
+                // Rotas públicas de autenticação
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/auth/**").permitAll()
+                
+                // Rotas web públicas
                 .requestMatchers("/usuario/boasvindas").permitAll()
                 .requestMatchers("/usuario/adicionar").permitAll()
                 .requestMatchers("/login").permitAll()
-                                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                .requestMatchers("/h2-console/**").permitAll()
-
                 .requestMatchers("/", "/home").permitAll()
                 .requestMatchers("/cadastro/**").permitAll()
-                .requestMatchers("/tarefas/**").authenticated()
-
-                .requestMatchers("/api/**").authenticated()
-                .requestMatchers("/usuario/listar/**").authenticated()
-                .requestMatchers("/usuario/alterar/**").authenticated()
-                .requestMatchers("/usuario/deletar/**").hasRole("ADMIN")
-
+                
+                // Rotas da API para testes no Postman
+                .requestMatchers("/api/**").permitAll()
+                .requestMatchers("/usuario/**").permitAll()
+                .requestMatchers("/tarefas/**").permitAll()
+                
+                // Documentação e console
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .requestMatchers("/h2-console/**").permitAll()
+                
+                // Recursos estáticos
                 .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                 
+                // Qualquer outra requisição deve ser autenticada
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
