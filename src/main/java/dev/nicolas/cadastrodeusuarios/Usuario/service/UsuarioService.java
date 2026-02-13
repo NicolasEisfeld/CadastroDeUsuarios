@@ -4,6 +4,7 @@ import dev.nicolas.cadastrodeusuarios.Usuario.dto.UsuarioDTO;
 import dev.nicolas.cadastrodeusuarios.Usuario.mapper.UsuarioMapper;
 import dev.nicolas.cadastrodeusuarios.Usuario.model.UsuarioModel;
 import dev.nicolas.cadastrodeusuarios.Usuario.repository.UsuarioRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
@@ -25,11 +27,16 @@ public class UsuarioService {
 
     // Adicionar Usuário
     public UsuarioDTO adicionarUsuario(UsuarioDTO usuarioDTO) {
+        log.info("Adicionando usuário com email: {}", usuarioDTO.getEmail());
+        log.info("Senha original (não criptografada): {}", usuarioDTO.getPassword());
+        
         UsuarioModel usuarioModel = usuarioMapper.map(usuarioDTO);
         
         // Criptografar senha antes de salvar
         if (usuarioModel.getPassword() != null && !usuarioModel.getPassword().isEmpty()) {
-            usuarioModel.setPassword(passwordEncoder.encode(usuarioModel.getPassword()));
+            String senhaCriptografada = passwordEncoder.encode(usuarioModel.getPassword());
+            usuarioModel.setPassword(senhaCriptografada);
+            log.info("Senha criptografada: {}", senhaCriptografada);
         }
         
         // Garantir que o usuário tenha pelo menos a role USER
@@ -38,6 +45,8 @@ public class UsuarioService {
         }
         
         usuarioModel = usuarioRepository.save(usuarioModel);
+        log.info("Usuário salvo com ID: {}", usuarioModel.getId());
+        
         return usuarioMapper.map(usuarioModel);
     }
 
