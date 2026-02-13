@@ -33,7 +33,4 @@ public class TarefaModel {
     @ManyToOne // Uma Tarefa pertence a um Usuário
     @JoinColumn(name = "usuario_id") // Define a chave estrangeira
     private UsuarioModel usuario;
-    
-    @Column(name = "usuario_id")
-    private Long usuarioId;
 }

@@ -2,6 +2,7 @@ package dev.nicolas.cadastrodeusuarios.Tarefas.mapper;
 
 import dev.nicolas.cadastrodeusuarios.Tarefas.dto.TarefaDTO;
 import dev.nicolas.cadastrodeusuarios.Tarefas.model.TarefaModel;
+import dev.nicolas.cadastrodeusuarios.Usuario.model.UsuarioModel;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,7 +16,6 @@ public class TarefaMapper {
         tarefaModel.setConcluida(tarefaDTO.isConcluida());
         tarefaModel.setStatus(tarefaDTO.getStatus());
         tarefaModel.setUsuario(tarefaDTO.getUsuario());
-        tarefaModel.setUsuarioId(tarefaDTO.getUsuarioId());
 
         return tarefaModel;
     }
@@ -28,7 +28,11 @@ public class TarefaMapper {
         tarefaDTO.setConcluida(tarefaModel.isConcluida());
         tarefaDTO.setStatus(tarefaModel.getStatus());
         tarefaDTO.setUsuario(tarefaModel.getUsuario());
-        tarefaDTO.setUsuarioId(tarefaModel.getUsuarioId());
+        
+        // Extrair o ID do usuário se existir
+        if (tarefaModel.getUsuario() != null) {
+            tarefaDTO.setUsuarioId(tarefaModel.getUsuario().getId());
+        }
 
         return tarefaDTO;
     }
