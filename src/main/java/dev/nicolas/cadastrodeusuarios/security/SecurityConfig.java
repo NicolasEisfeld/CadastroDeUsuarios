@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,7 +14,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -31,27 +31,34 @@ public class SecurityConfig {
     private final CustomUserDetailsService userDetailsService;
 
     @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(AbstractHttpConfigurer::disable)
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
             .authorizeHttpRequests(auth -> auth
                 // Rotas públicas de autenticação
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/debug/**").permitAll()
                 
                 // Rotas web públicas
-                .requestMatchers("/usuario/boasvindas").permitAll()
-                .requestMatchers("/usuario/adicionar").permitAll()
                 .requestMatchers("/login").permitAll()
                 .requestMatchers("/", "/home").permitAll()
                 .requestMatchers("/cadastro/**").permitAll()
                 
                 // Rotas da API para testes no Postman
                 .requestMatchers("/api/**").permitAll()
-                .requestMatchers("/usuario/**").permitAll()
-                .requestMatchers("/tarefas/**").permitAll()
+                .requestMatchers("/tarefa/**").permitAll()
+                .requestMatchers("/tarefas/**").authenticated()
                 
                 // Documentação e console
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
@@ -63,8 +70,12 @@ public class SecurityConfig {
                 // Qualquer outra requisição deve ser autenticada
                 .anyRequest().authenticated()
             )
+            .userDetailsService(userDetailsService)
+            .authenticationProvider(authenticationProvider())
             .formLogin(form -> form
                 .loginPage("/login")
+                .usernameParameter("username")
+                .passwordParameter("password")
                 .defaultSuccessUrl("/home", true)
                 .failureUrl("/login?error=true")
                 .permitAll()
@@ -74,8 +85,7 @@ public class SecurityConfig {
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .permitAll()
-            )
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+            );
 
         // Permitir frame options para H2 console
         http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
