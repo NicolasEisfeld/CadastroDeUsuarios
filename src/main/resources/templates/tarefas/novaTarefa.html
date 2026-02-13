@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Sistema de Cadastro</title>
+    <title>Nova Tarefa</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
@@ -15,54 +15,52 @@
             <a href="/" class="nav-logo">NicolasDev</a>
             <ul class="nav-menu">
                 <li><a href="/" class="nav-link">Home</a></li>
-                <li><a href="/cadastro" class="nav-link">Cadastro</a></li>
-                <li><a href="/login" class="nav-link">Login</a></li>
-                <li><a href="/tarefas" class="nav-link">Tarefas</a></li>
+                <li><a href="/tarefas" class="nav-link">Minhas Tarefas</a></li>
+                <li><a href="/logout" class="nav-link">Sair</a></li>
             </ul>
         </div>
     </nav>
 
     <div class="container">
-        <h1>Login</h1>
+        <h1>Nova Tarefa</h1>
+        <p th:if="${usuario}" th:text="'Criando tarefa para: ' + ${usuario.nome}"></p>
 
-        <div th:if="${error}" class="alert" role="alert">
-            <span th:text="${error}"></span>
-        </div>
-        <div th:if="${message}" class="alert" role="alert">
-            <span th:text="${message}"></span>
-        </div>
-
-        <!-- Formulário de Login -->
-        <form th:action="@{/login}" method="post">
+        <form th:action="@{/tarefas}" th:object="${tarefa}" method="post">
             <div class="row">
                 <div class="input-group">
-                    <label for="username">E-mail</label>
-                    <input type="email" id="username" name="username" placeholder="seu@email.com" required>
+                    <label for="descricao">Descrição</label>
+                    <input type="text" id="descricao" th:field="*{descricao}" placeholder="Digite a descrição da tarefa"
+                        required>
                 </div>
             </div>
+
             <div class="row">
                 <div class="input-group">
-                    <label for="password">Senha</label>
-                    <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+                    <label for="prioridade">Prioridade</label>
+                    <select id="prioridade" th:field="*{prioridade}" required>
+                        <option value="1">Baixa</option>
+                        <option value="2">Média</option>
+                        <option value="3">Alta</option>
+                    </select>
                 </div>
             </div>
+
             <div class="row">
-                <label>
-                    <input type="checkbox" id="remember-me" name="remember-me">
-                    Lembrar-me
-                </label>
+                <div class="input-group">
+                    <label for="status">Status</label>
+                    <select id="status" th:field="*{status}" required>
+                        <option value="PENDENTE">Pendente</option>
+                        <option value="EM_ANDAMENTO">Em Andamento</option>
+                        <option value="CONCLUIDA">Concluída</option>
+                    </select>
+                </div>
             </div>
-            <button type="submit">Entrar</button>
+
+            <div class="row">
+                <button type="submit" class="btn btn-primary">Criar Tarefa</button>
+                <a href="/tarefas" class="btn btn-secondary">Cancelar</a>
+            </div>
         </form>
-
-        <br />
-
-        <div class="message-container">
-            <p class="message">
-                Não tem uma conta?
-                <a th:href="@{/cadastro}" class="nav-link">Cadastre-se aqui</a>
-            </p>
-        </div>
     </div>
 
     <!-- Footer -->
@@ -84,7 +82,6 @@
             </div>
         </div>
     </footer>
-
 </body>
 
 </html>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Usuário</title>
+    <title>Editar Tarefa</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
@@ -15,38 +15,60 @@
             <a href="/" class="nav-logo">NicolasDev</a>
             <ul class="nav-menu">
                 <li><a href="/" class="nav-link">Home</a></li>
-                <li><a href="/cadastro" class="nav-link">Cadastro</a></li>
-                <li><a href="/login" class="nav-link">Login</a></li>
-                <li><a href="/tarefas" class="nav-link">Tarefas</a></li>
+                <li><a href="/tarefas" class="nav-link">Minhas Tarefas</a></li>
+                <li><a href="/logout" class="nav-link">Sair</a></li>
             </ul>
         </div>
     </nav>
-    <div class="container">
-        <h1>Cadastro de Usuário</h1>
 
-        <form th:action="@{/cadastro}" th:object="${usuario}" method="post">
+    <div class="container">
+        <h1>Editar Tarefa</h1>
+        <p th:if="${usuario}" th:text="'Editando tarefa para: ' + ${usuario.nome}"></p>
+
+        <form th:action="@{'/tarefas/editar/' + ${tarefa.id}}" th:object="${tarefa}" method="post">
             <div class="row">
                 <div class="input-group">
-                    <label for="nome">Nome</label>
-                    <input type="text" id="nome" th:field="*{nome}" placeholder="Digite seu nome completo" required>
-                </div>
-                <div class="input-group">
-                    <label for="idade">Idade</label>
-                    <input type="number" id="idade" th:field="*{idade}" placeholder="Idade" min="1" max="150" required>
+                    <label for="descricao">Descrição</label>
+                    <input type="text" id="descricao" th:field="*{descricao}" placeholder="Digite a descrição da tarefa"
+                        required>
                 </div>
             </div>
+
             <div class="row">
                 <div class="input-group">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" th:field="*{email}" placeholder="seu@email.com" required>
-                </div>
-                <div class="input-group">
-                    <label for="senha">Senha</label>
-                    <input type="password" id="senha" th:field="*{password}" placeholder="Digite sua senha"
-                        minlength="6" required>
+                    <label for="prioridade">Prioridade</label>
+                    <select id="prioridade" th:field="*{prioridade}" required>
+                        <option value="1">Baixa</option>
+                        <option value="2">Média</option>
+                        <option value="3">Alta</option>
+                    </select>
                 </div>
             </div>
-            <button type="submit">Criar Conta</button>
+
+            <div class="row">
+                <div class="input-group">
+                    <label for="status">Status</label>
+                    <select id="status" th:field="*{status}" required>
+                        <option value="PENDENTE">Pendente</option>
+                        <option value="EM_ANDAMENTO">Em Andamento</option>
+                        <option value="CONCLUIDA">Concluída</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-group">
+                    <label>
+                        <input type="checkbox" th:field="*{concluida}">
+                        Concluída
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                <a href="/tarefas" class="btn btn-secondary">Cancelar</a>
+            </div>
         </form>
     </div>
 

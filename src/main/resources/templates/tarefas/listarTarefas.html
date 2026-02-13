@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarefas</title>
+    <title>Minhas Tarefas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
@@ -14,36 +15,77 @@
             <a href="/" class="nav-logo">NicolasDev</a>
             <ul class="nav-menu">
                 <li><a href="/" class="nav-link">Home</a></li>
-                <li><a href="/cadastro" class="nav-link">Cadastro</a></li>
-                <li><a href="/login" class="nav-link">Login</a></li>
-                <li><a href="/tafefas" class="nav-link">Tarefas</a></li>
+                <li><a href="/tarefas" class="nav-link">Minhas Tarefas</a></li>
+                <li><a href="/logout" class="nav-link">Sair</a></li>
             </ul>
         </div>
     </nav>
-    <h1>Lista de Tarefas</h1>
-    <table >
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Descricao</th>
-                <th>Prioridade</th>
-                <th>Concluida</th>
-                <th>Usuario</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="tarefa : ${tarefas}">
-                <td th:text="${tarefa.id}">1</td>
-                <td th:text="${tarefa.descricao}">Descrição da Tarefa</td>
-                <td th:text="${tarefa.prioridade}">Prioridade da Tarefa</td>
-                <td th:text="${tarefa.concluida}">Status da Tarefa</td>
-                <td th:text="${tarefa.usuario}">Tarefa do Usuário</td>
-                <td>
-                    <a th:href="@{'/tarefas/alterar/' + ${tarefa.id}}">Alterar</a>
-                    <a th:href="@{'/tarefas/deletar/' + ${tarefa.id}}">Deletar</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+
+    <div class="container">
+        <div class="header-section">
+            <h1>Minhas Tarefas</h1>
+            <p th:if="${usuario}" th:text="'Bem-vindo(a), ' + ${usuario.nome} + '!'"></p>
+            <a href="/tarefas/nova" class="btn btn-primary">Nova Tarefa</a>
+        </div>
+
+        <div th:if="${mensagem}" class="alert alert-success">
+            <span th:text="${mensagem}"></span>
+        </div>
+        <div th:if="${erro}" class="alert alert-danger">
+            <span th:text="${erro}"></span>
+        </div>
+
+        <div class="task-list" th:if="${tarefas != null and !tarefas.empty}">
+            <div class="task-card" th:each="tarefa : ${tarefas}">
+                <div class="task-card-header">
+                    <span class="task-id" th:text="'#' + ${tarefa.id}">#1</span>
+                    <span class="task-status" th:text="${tarefa.status}">Pendente</span>
+                </div>
+
+                <h3 class="task-title" th:text="${tarefa.descricao}">Descrição da Tarefa</h3>
+
+                <div class="task-meta">
+                    <span><strong>Prioridade:</strong> <span th:text="${tarefa.prioridade}">1</span></span>
+                </div>
+
+                <div class="task-actions">
+                    <a th:href="@{'/tarefas/editar/' + ${tarefa.id}}" class="btn-link">Alterar</a>
+                    <form th:action="@{'/tarefas/concluir/' + ${tarefa.id}}" method="post" style="display: inline;">
+                        <button type="submit" class="btn-link">Concluir</button>
+                    </form>
+                    <form th:action="@{'/tarefas/deletar/' + ${tarefa.id}}" method="post" style="display: inline;">
+                        <button type="submit" class="btn-link btn-danger">Deletar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${tarefas == null or tarefas.empty}" class="empty-state">
+            <h3>Nenhuma tarefa encontrada</h3>
+            <p>Você ainda não tem tarefas. Crie sua primeira tarefa!</p>
+            <a href="/tarefas/nova" class="btn btn-primary">Criar Primeira Tarefa</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Sistema de Cadastro</h5>
+                    <a href="https://github.com/NicolasEisfeld"><p class="text-muted">Desenvolvido por Nicolas Eisfeld.</p></a>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <h5>Tecnologias</h5>
+                    <p class="text-muted">
+                        <i class="fab fa-java"></i> Java 24 |
+                        <i class="fas fa-leaf"></i> Spring Boot 3.5.6 |
+                        <i class="fas fa-shield-alt"></i> Spring Security
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
+
 </html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Sistema de Cadastro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/src/main/resources/static/css/style.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">NicolasDev</a>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/cadastro" class="nav-link">Cadastro</a></li>
+                <li><a href="/login" class="nav-link">Login</a></li>
+                <li><a href="/tarefas" class="nav-link">Tarefas</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container">
+            <!-- Informações do usuário logado -->
+            <div th:if="${isLoggedIn}" class="user-info">
+                <h4><i class="fas fa-user"></i> Bem-vindo(a), <span th:text="${usuario.nome}"></span>!</h4>
+
+            </div>
+
+            <h1 class="display-4 fw-bold mb-4">Sistema de Gerenciamento</h1>
+            <p class="lead mb-4">Gerencie suas tarefas de forma simples e eficiente</p>
+        </div>
+    </section>
+
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h3 class="mb-4">Gerencie suas tarefas</h3>
+                    <p class="text-muted mb-4">Crie, altere, conclua e delete suas tarefas de forma simples</p>
+                    <div th:if="${isLoggedIn}">
+                        <a th:href="@{/tarefas}" class="btn btn-primary">
+                            <i class="fas fa-tasks"></i> Ver Minhas Tarefas
+                        </a>
+                    </div>
+                    <div th:unless="${isLoggedIn}">
+                        <a th:href="@{/login}" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt"></i> Fazer Login para Começar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h3 class="mb-4">Documentação da API</h3>
+                    <p class="text-muted mb-4">Acesse a documentação completa da nossa API REST</p>
+                    <a href="/swagger-ui/index.html" class="btn btn-primary" target="_blank">
+                        <i class="fas fa-book"></i> Swagger UI
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Sistema de Cadastro</h5>
+                    <a href="https://github.com/NicolasEisfeld"><p class="text-muted">Desenvolvido por Nicolas Eisfeld.</p></a>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <h5>Tecnologias</h5>
+                    <p class="text-muted">
+                        <i class="fab fa-java"></i> Java 24 |
+                        <i class="fas fa-leaf"></i> Spring Boot 3.5.6 |
+                        <i class="fas fa-shield-alt"></i> Spring Security
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
