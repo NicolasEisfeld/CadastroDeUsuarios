@@ -171,6 +171,19 @@ form input {
     outline: none;
 }
 
+form select {
+    width: 100%;
+    padding: 16px;
+    background: var(--bg-card);
+    border: none;
+    border-radius: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 450;
+    font-size: 0.9rem;
+    color: var(--text-card);
+    outline: none;
+}
+
 
 form input::placeholder {
     color: #666;
@@ -254,6 +267,18 @@ form button:hover {
     background: var(--bg-primary);
     border-color: var(--accent);
     transform: translateY(-2px);
+}
+
+.task-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+}
+
+.task-actions form,
+.task-actions .btn-link {
+    width: 100%;
 }
 
 /* Responsividade */
@@ -656,6 +681,22 @@ form button:hover {
 .btn-primary:hover {
     transform: translateY(-2px);
     background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.btn-secondary {
+    background: #ffffff;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    color: var(--text-card);
+    padding: 12px 30px;
+    font-weight: 600;
+    transition: transform 0.2s, background 0.2s, color 0.2s;
+}
+
+.btn-secondary:hover {
+    background: #f3f4f6;
+    transform: translateY(-2px);
+    color: var(--text-card);
 }
 
 .btn-outline-light {
