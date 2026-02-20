@@ -46,12 +46,25 @@ public class UsuarioController {
         );
     }
 
+    // Listar Todos os Usuários (read)
+    @GetMapping("/listar")
+    @Operation(summary = "Listar Usuários", description = "Essa rota lista todos os usuários que estão cadastrados no Banco de Dados.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Usuários encontrados com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Usuários não encontrados com sucesso")
+    })
+    public ResponseEntity<List<UsuarioDTO>> listarUsuarios() {
+        List<UsuarioDTO> usuarios = usuarioService.listarUsuarios();
+        return ResponseEntity.ok(usuarios);
+    }
+
+
     // Procurar Usuario por ID (read)
     @GetMapping("/listar/{id}")
-    @Operation(summary = "Listar Usuário por ID")
+    @Operation(summary = "Listar Usuário por ID", description = "Essa rota permite visualizar um Usuário a partir da busca por ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Usuário encontrado com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Usuário não encontrado com sucesso")
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
     })
     public ResponseEntity<?> listarUsuarioPorID(
             @Parameter(description = "O Usuário manda o ID no caminho da requisição para listar")
@@ -67,17 +80,6 @@ public class UsuarioController {
 
     }
 
-    // Listar Todos os Usuários (read)
-    @GetMapping("/listar")
-    @Operation(summary = "Listar Usuários", description = "Essa rota lista todos os usuários que estão cadastrados no Banco de Dados.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Usuários encontrados com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Usuários não encontrados com sucesso")
-    })
-    public ResponseEntity<List<UsuarioDTO>> listarUsuarios() {
-        List<UsuarioDTO> usuarios = usuarioService.listarUsuarios();
-        return ResponseEntity.ok(usuarios);
-    }
 
     // Alterar Usuário (update)
     @PutMapping("/alterar/{id}")
