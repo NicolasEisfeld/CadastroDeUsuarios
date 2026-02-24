@@ -54,6 +54,58 @@ Esse projeto permite que o Usuário se cadastre, faça autentificação e acesse
    - Documentação da API (Swagger): http://localhost:8080/swagger-ui.html
    - Console H2: http://localhost:8080/h2-console
 
+## Funcionalidades Principais
+
+### Usuários
+- Cadastro: Nome, E-mail, Senha, Idade e Papel (ROLE_USER/ROLE_ADMIN).
+- Autenticação: Login com geração de token JWT.
+- Gerenciamento: Listagem, busca por ID, alteração e exclusão de usuários.
+- Segurança: Senhas criptografadas com BCrypt e controle de acesso por roles.
+
+### Tarefas
+- Cadastro: Título, Descrição, Status (PENDENTE/EM_ANDAMENTO/CONCLUIDA) e Data de criação.
+- Listagem: Visualização de todas as tarefas cadastradas.
+- Gerenciamento: Busca por ID, alteração e exclusão de tarefas.
+- Associação: Tarefas vinculadas a usuários autenticados.
+
+### Autenticação
+- Login: Autenticação via e-mail e senha com geração de token JWT.
+- Refresh: Renovação de token de acesso.
+- Logout: Encerramento de sessão.
+- Perfil: Visualização de dados do usuário autenticado.
+
+## Endpoints da API
+
+### 1. Usuários (/usuario)
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/usuario/boasvindas` | Retorna mensagem de boas-vindas |
+| POST | `/usuario/adicionar` | Cadastra um novo usuário |
+| GET | `/usuario/listar` | Lista todos os usuários cadastrados |
+| GET | `/usuario/listar/{id}` | Busca usuário por ID específico |
+| PUT | `/usuario/alterar/{id}` | Altera dados de um usuário por ID |
+| DELETE | `/usuario/deletar/{id}` | Remove um usuário por ID |
+
+### 2. Tarefas (/tarefa)
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| POST | `/tarefa/adicionar` | Cadastra uma nova tarefa |
+| GET | `/tarefa/listar` | Lista todas as tarefas cadastradas |
+| GET | `/tarefa/listar/{id}` | Busca tarefa por ID específico |
+| PUT | `/tarefa/alterar/{id}` | Altera dados de uma tarefa por ID |
+| DELETE | `/tarefa/deletar/{id}` | Remove uma tarefa por ID |
+
+### 3. Autenticação (/auth)
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| POST | `/auth/login` | Realiza login e gera token JWT |
+| POST | `/auth/refresh` | Renova o token de acesso |
+| GET | `/auth/me` | Retorna dados do usuário autenticado |
+| POST | `/auth/logout` | Encerra a sessão do usuário |
+
 ## Configuração
 
 O projeto utiliza um arquivo `.env` para configurações de ambiente (como chaves JWT). Certifique-se de configurar as variáveis de ambiente necessárias antes de executar a aplicação.
